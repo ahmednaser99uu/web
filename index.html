@@ -170,6 +170,7 @@ return;
 
 if(user === "admin" && pass === "1234"){
 
+sessionStorage.setItem("loggedIn","true");
 
 if (window.chrome && window.chrome.webview) {
 window.chrome.webview.postMessage("LoginSuccess");
