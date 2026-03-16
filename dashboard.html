@@ -36,7 +36,6 @@ color:var(--silver);
 overflow:hidden;
 }
 
-
 .emoji-bg{
 position:fixed;
 inset:0;
@@ -58,7 +57,6 @@ animation:float 15s linear infinite;
 from{transform:translateY(0)}
 to{transform:translateY(-150vh)}
 }
-
 
 .container{
 position:relative;
@@ -88,6 +86,16 @@ font-size:20px;
 opacity:.8;
 }
 
+button{
+margin-top:20px;
+padding:10px 25px;
+border-radius:30px;
+border:1px solid var(--edge);
+background:#15151a;
+color:#fff;
+cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -95,37 +103,42 @@ opacity:.8;
 
 <div class="emoji-bg" id="emojiBg"></div>
 
-<div class="container">
-
+<div class="container" id="content">
 <h1>الوقت الحالي</h1>
-
 <div class="time" id="time"></div>
 <div class="date" id="date"></div>
-
 </div>
 
 <script>
 
-
-
-if(sessionStorage.getItem("loggedIn") !== "true"){
-window.location.href="/";
-}
-
 (()=>{
 const bg=document.getElementById('emojiBg');
+
 for(let i=0;i<190;i++){
+
 const d=document.createElement('div');
 d.className='emoji';
+
 d.style.left=Math.random()*innerWidth+'px';
 d.style.top=(Math.random()*innerHeight+innerHeight)+'px';
 d.style.animationDelay=(-Math.random()*20)+'s';
 d.style.animationDuration=(15+Math.random()*15)+'s';
+
 bg.appendChild(d);
+
 }
+
 })();
 
 
+if(sessionStorage.getItem("loggedIn") !== "true"){
+
+document.getElementById("content").innerHTML = `
+<h1>يجب تسجيل الدخول أولاً</h1>
+<button onclick="goLogin()">العودة لصفحة تسجيل الدخول</button>
+`;
+
+}else{
 
 function updateTime(){
 
@@ -141,6 +154,12 @@ document.getElementById("date").textContent=date;
 
 setInterval(updateTime,1000);
 updateTime();
+
+}
+
+function goLogin(){
+window.location.href="/";
+}
 
 </script>
 
