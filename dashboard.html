@@ -36,7 +36,6 @@ color:var(--silver);
 overflow:hidden;
 }
 
-/* خلفية النجوم */
 
 .emoji-bg{
 position:fixed;
@@ -60,7 +59,6 @@ from{transform:translateY(0)}
 to{transform:translateY(-150vh)}
 }
 
-/* الكارت */
 
 .container{
 position:relative;
@@ -108,7 +106,11 @@ opacity:.8;
 
 <script>
 
-/* الخلفية المتحركة */
+
+
+if(sessionStorage.getItem("loggedIn") !== "true"){
+window.location.href="/";
+}
 
 (()=>{
 const bg=document.getElementById('emojiBg');
@@ -123,7 +125,7 @@ bg.appendChild(d);
 }
 })();
 
-/* تحديث الوقت */
+
 
 function updateTime(){
 
