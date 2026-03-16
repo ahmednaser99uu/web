@@ -142,7 +142,6 @@ button:disabled{opacity:.2}
 
 <script>
 
-/* الخلفية المتحركة */
 (()=>{
 const bg=document.getElementById('emojiBg');
 for(let i=0;i<190;i++){
@@ -156,16 +155,28 @@ bg.appendChild(d);
 }
 })();
 
-/* تسجيل الدخول (محلي فقط) */
+
 function login(){
 
-const user=document.getElementById("username").value;
-const pass=document.getElementById("password").value;
+const user = document.getElementById("username").value;
+const pass = document.getElementById("password").value;
 
-/* بيانات افتراضية */
-if(user==="admin" && pass==="1234"){
 
-window.location.href="/dashboard";
+if(user === ""){
+alert("يرجى إدخال اسم المستخدم");
+return;
+}
+
+
+if(user === "admin" && pass === "1234"){
+
+
+if (window.chrome && window.chrome.webview) {
+window.chrome.webview.postMessage("LoginSuccess");
+}
+
+
+window.location.href = "/dashboard";
 
 }else{
 
