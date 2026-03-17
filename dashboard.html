@@ -130,21 +130,7 @@ bg.appendChild(d);
 
 })();
 
-async function checkAuth(){
-try{
-const res = await fetch("/api/check",{
-credentials:"include"
-});
-if(!res.ok) throw new Error();
-return true;
-}catch{
-return false;
-}
-}
 
-(async()=>{
-
-const ok = await checkAuth();
 
 if(!ok){
 
