@@ -28,7 +28,7 @@ const h = c.createHash("sha256").update(p || "").digest("hex");
 
 if(u === U && h === H){
 res.setHeader("Set-Cookie","auth=1; Path=/; HttpOnly; SameSite=Strict");
-res.writeHead(302,{Location:"/dashboard"});
+res.writeHead(302,{Location:"/api/dashboard"});
 return res.end();
 }
 
