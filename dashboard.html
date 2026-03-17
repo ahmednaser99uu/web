@@ -103,67 +103,40 @@ cursor:pointer;
 
 <div class="emoji-bg" id="emojiBg"></div>
 
-<div class="container" id="content">
+<div class="container">
 <h1>الوقت الحالي</h1>
-<div class="time" id="time"></div>
-<div class="date" id="date"></div>
+<div class="time" id="t"></div>
+<div class="date" id="d"></div>
+<button onclick="l()">Logout</button>
 </div>
 
 <script>
-
 (()=>{
 const bg=document.getElementById('emojiBg');
-
 for(let i=0;i<190;i++){
-
-const d=document.createElement('div');
-d.className='emoji';
-
-d.style.left=Math.random()*innerWidth+'px';
-d.style.top=(Math.random()*innerHeight+innerHeight)+'px';
-d.style.animationDelay=(-Math.random()*20)+'s';
-d.style.animationDuration=(15+Math.random()*15)+'s';
-
-bg.appendChild(d);
-
+const x=document.createElement('div');
+x.className='emoji';
+x.style.left=Math.random()*innerWidth+'px';
+x.style.top=(Math.random()*innerHeight+innerHeight)+'px';
+x.style.animationDelay=(-Math.random()*20)+'s';
+x.style.animationDuration=(15+Math.random()*15)+'s';
+bg.appendChild(x);
 }
-
 })();
 
-
-
-if(!ok){
-
-document.getElementById("content").innerHTML = `
-<h1>يجب تسجيل الدخول أولاً</h1>
-<button onclick="goLogin()">العودة لصفحة تسجيل الدخول</button>
-`;
-
-return;
-
+function u(){
+const n=new Date();
+t.textContent=n.toLocaleTimeString();
+d.textContent=n.toLocaleDateString();
 }
 
-function updateTime(){
+setInterval(u,1000);
+u();
 
-const now=new Date();
-
-const time=now.toLocaleTimeString();
-const date=now.toLocaleDateString();
-
-document.getElementById("time").textContent=time;
-document.getElementById("date").textContent=date;
-
+function l(){
+document.cookie="auth=; Max-Age=0; Path=/";
+location.href="/";
 }
-
-setInterval(updateTime,1000);
-updateTime();
-
-})();
-
-function goLogin(){
-window.location.href="/";
-}
-
 </script>
 
 </body>
