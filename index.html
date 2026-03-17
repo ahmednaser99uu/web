@@ -130,11 +130,6 @@ button:disabled{opacity:.2}
 
 <h2>Login</h2>
 
-<input id="username" type="text" placeholder="Username">
-<br>
-<input id="password" type="password" placeholder="Password">
-
-<div class="buttons">
 <form method="POST" action="/api/login">
 
 <input id="username" name="user" type="text" placeholder="Username">
@@ -147,12 +142,10 @@ button:disabled{opacity:.2}
 </div>
 
 </form>
-</div>
 
 </div>
 
 <script>
-
 (()=>{
 const bg=document.getElementById('emojiBg');
 for(let i=0;i<190;i++){
@@ -165,33 +158,6 @@ d.style.animationDuration=(15+Math.random()*15)+'s';
 bg.appendChild(d);
 }
 })();
-
-let attempts = 0;
-
-
-
-try{
-
-const res = await fetch("/api/login",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-credentials:"include",
-body:JSON.stringify({user,pass})
-});
-
-if(res.ok){
-window.location.href="/dashboard";
-}else{
-attempts++;
-alert("Wrong Username or Password");
-}
-
-}catch{
-alert("Server Error");
-}
-
-}
-
 </script>
 
 </body>
