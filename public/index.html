@@ -155,34 +155,41 @@ bg.appendChild(d);
 }
 })();
 
+let attempts = 0;
 
-function login(){
+async function login(){
 
-const user = document.getElementById("username").value;
-const pass = document.getElementById("password").value;
-
+const user = document.getElementById("username").value.trim();
+const pass = document.getElementById("password").value.trim();
 
 if(user === ""){
 alert("يرجى إدخال اسم المستخدم");
 return;
 }
 
-
-if(user === "admin" && pass === "1234"){
-
-sessionStorage.setItem("loggedIn","true");
-
-if (window.chrome && window.chrome.webview) {
-window.chrome.webview.postMessage("LoginSuccess");
+if(attempts >= 5){
+alert("تم حظر المحاولات مؤقتاً");
+return;
 }
 
+try{
 
-window.location.href = "/dashboard";
+const res = await fetch("/api/login",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+credentials:"include",
+body:JSON.stringify({user,pass})
+});
 
+if(res.ok){
+window.location.href="/public/dashboard";
 }else{
-
+attempts++;
 alert("Wrong Username or Password");
+}
 
+}catch{
+alert("Server Error");
 }
 
 }
