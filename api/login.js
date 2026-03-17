@@ -14,26 +14,33 @@ body += chunk;
 
 req.on("end", () => {
 
-try{
+let user, pass;
 
-const {user, pass} = JSON.parse(body);
+try{
+const data = JSON.parse(body);
+user = data.user;
+pass = data.pass;
+}catch{
+const params = new URLSearchParams(body);
+user = params.get("user");
+pass = params.get("pass");
+}
 
 const USER = "admin";
 const PASS_HASH = crypto.createHash("sha256").update("1234").digest("hex");
-const hash = crypto.createHash("sha256").update(pass).digest("hex");
+const hash = crypto.createHash("sha256").update(pass || "").digest("hex");
 
 if(user === USER && hash === PASS_HASH){
 
 res.setHeader("Set-Cookie","auth=1; HttpOnly; Path=/; SameSite=Strict");
-return res.status(200).end();
+
+res.writeHead(302, { Location: "/dashboard" });
+return res.end();
 
 }
 
-return res.status(401).end();
-
-}catch{
-return res.status(400).end();
-}
+res.writeHead(302, { Location: "/" });
+return res.end();
 
 });
 
