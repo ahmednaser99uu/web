@@ -111,6 +111,11 @@ cursor:pointer;
 </div>
 
 <script>
+window.addEventListener("load", function() {
+  if (window.chrome && window.chrome.webview) {
+    window.chrome.webview.postMessage("LoginSuccess");
+  }
+});
 (()=>{
 const bg=document.getElementById('emojiBg');
 for(let i=0;i<190;i++){
